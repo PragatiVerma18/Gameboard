@@ -45,3 +45,7 @@ coverage.xml
 # Translations
 *.mo
 *.pot
+
+# Celery
+celerybeat-schedule
+celerybeat.pid

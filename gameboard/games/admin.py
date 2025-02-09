@@ -88,12 +88,15 @@ class GamePopularityAdmin(BaseModelAdmin):
     def game(self: GamePopularity):
         return object_link(self.game, display_value=self.game.name)
 
+    def last_updated_ist(self: GamePopularity):
+        return datetime_format_ist(self.last_updated)
+
     list_display = [
         "truncated_id",
         game,
         "date",
         "popularity_score",
-        "last_updated",
+        last_updated_ist,
     ]
     search_fields = [
         "id",
