@@ -14,7 +14,7 @@ class DeleteGameView(APIView):
     Also ends all ongoing sessions for this game in a transaction.
     """
 
-    def delete(self, request, game_id):
+    def post(self, request, game_id):
         try:
             game = Game.objects.filter(id=game_id).first()
 

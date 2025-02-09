@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "gameboard.games",
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
