@@ -2,6 +2,8 @@
 
 > GameBoard is a leaderboard and game session management system that allows tracking contestant scores, game popularity, and real-time leaderboards.
 
+See views [below](https://github.com/PragatiVerma18/Gameboard/#views) ⬇️
+
 ## Features
 
 - Create and manage games
@@ -91,7 +93,7 @@ Swagger and ReDoc endpoints:
 
 > Fetches the popularity scores of all games with pagination and ranking continuity.
 
-**Endpoint:** `GET /api/game-popularity/`
+**Endpoint:** `GET /api/games/popularity-leaderboard/`
 
 **Query Parameters:**
 
@@ -104,7 +106,7 @@ Swagger and ReDoc endpoints:
 **Example Request**:
 
 ```
-GET /api/game-popularity/?date=2025-02-09&page=1&page_size=2
+GET /api/games/popularity-leaderboard/?page=1&page_size=2
 ```
 
 **Example Response**:
@@ -234,3 +236,17 @@ GET /api/leaderboard/game/0194e9d7-7384-cd62-882b-6e25d03a59ee/?page=1&page_size
   }
 }
 ```
+
+## Views
+
+![Home Page](https://github.com/user-attachments/assets/ba2de675-fde6-4009-9196-9109df007a34)
+
+![Global Leaderboard](https://github.com/user-attachments/assets/6d9aa399-b9e6-48a1-bb82-e0df2739436f)
+
+![Game Level Leaderboard](https://github.com/user-attachments/assets/3a0c7f72-a35e-4ecb-8e7b-f86e7fd3946d)
+
+![Date level Leaderboard](https://github.com/user-attachments/assets/efabe72b-e937-475f-96b7-e59ec48d9085)
+
+![Game Popularity Index](https://github.com/user-attachments/assets/537fc243-ccac-4644-984c-f0e33858e739)
+
+
