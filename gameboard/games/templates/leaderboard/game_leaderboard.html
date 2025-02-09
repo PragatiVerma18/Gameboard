@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Game Leaderboard</title>
+        <script>
+            async function loadLeaderboard(gameId) {
+                try {
+                    const response = await fetch(`/api/leaderboard/game/${gameId}/`);
+                    const data = await response.json();
+
+                    const leaderboard = data.results.leaderboard;
+                    const table = document.getElementById("gameLeaderboard");
+                    table.innerHTML = `
+                    <tr>
+                        <th>Rank</th>
+                        <th>Contestant</th>
+                        <th>Total Score</th>
+                    </tr>
+                `;
+
+                    leaderboard.forEach((entry) => {
+                        table.innerHTML += `
+                        <tr>
+                            <td>${entry.rank}</td>
+                            <td>${entry.contestant__name}</td>
+                            <td>${entry.total_score}</td>
+                        </tr>
+                    `;
+                    });
+                } catch (error) {
+                    console.error("Error fetching leaderboard:", error);
+                }
+            }
+
+            function fetchLeaderboard() {
+                const gameId = document.getElementById("gameIdInput").value;
+                if (gameId) {
+                    loadLeaderboard(gameId);
+                }
+            }
+        </script>
+    </head>
+
+    <body>
+        <h2>🎮 Game Leaderboard</h2>
+        <input type="text" id="gameIdInput" placeholder="Enter Game ID">
+        <button onclick="fetchLeaderboard()">Load Game Leaderboard</button>
+        <table id="gameLeaderboard"></table>
+    </body>
+
+</html>

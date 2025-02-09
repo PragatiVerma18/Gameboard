@@ -20,7 +20,15 @@ from django.urls import path, include
 
 from gameboard.api import urls as api_urls
 
+from gameboard.games.views import GlobalLeaderboardView, GameLeaderboardView
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(api_urls)),
+    path(
+        "leaderboard/global/",
+        GlobalLeaderboardView.as_view(),
+        name="global_leaderboard",
+    ),
+    path("leaderboard/game/", GameLeaderboardView.as_view(), name="game_leaderboard"),
 ]
