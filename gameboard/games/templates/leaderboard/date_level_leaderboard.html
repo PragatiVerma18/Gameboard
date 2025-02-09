@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Game Leaderboard</title>
+        <title>Date Leaderboard</title>
 
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -16,7 +16,6 @@
                 background-color: #343a40;
                 color: white;
                 padding: 20px;
-                border-right: 1px solid #ddd;
             }
 
             .sidebar a {
@@ -42,41 +41,22 @@
         <script>
             let currentPage = 1;
             let pageSize = 10;
-            let currentGameId = null;
+            let currentDate = null;
 
-            async function loadGames() {
+            async function loadLeaderboard(date, page = 1) {
+                const formattedDate = new Date(date).toISOString().split('T')[0];
+
                 try {
-                    const response = await fetch("/api/games/");
+                    const response = await fetch(`/api/leaderboard/date?date=${formattedDate}&page=${page}&page_size=${pageSize}`);
                     const data = await response.json();
 
                     if (!data.results || data.results.length === 0) {
-                        console.error("No games found.");
+                        document.getElementById("dateLeaderboard").innerHTML = `<tr><td colspan="3" class="text-center">No leaderboard data found.</td></tr>`;
                         return;
                     }
 
-                    const dropdown = document.getElementById("gameDropdown");
-                    dropdown.innerHTML = `<option value="">Select a Game</option>`;
-
-                    data.results.forEach((game) => {
-                        dropdown.innerHTML += `<option value="${game.id}">${game.name} (${game.upvotes} upvotes)</option>`;
-                    });
-                } catch (error) {
-                    console.error("Error fetching games:", error);
-                }
-            }
-
-            async function loadLeaderboard(gameId, page = 1) {
-                try {
-                    const response = await fetch(`/api/leaderboard/game/${gameId}/?page=${page}&page_size=${pageSize}`);
-                    const data = await response.json();
-
-                    if (!data.results || !data.results.leaderboard.length) {
-                        document.getElementById("gameLeaderboard").innerHTML = `<tr><td colspan="3" class="text-center">No leaderboard data found.</td></tr>`;
-                        return;
-                    }
-
-                    const leaderboard = data.results.leaderboard;
-                    const table = document.getElementById("gameLeaderboard");
+                    const leaderboard = data.results;
+                    const table = document.getElementById("dateLeaderboard");
 
                     table.innerHTML = `
                     <thead class="table-dark">
@@ -112,26 +92,24 @@
             }
 
             function fetchLeaderboard() {
-                const gameId = document.getElementById("gameDropdown").value;
-                if (gameId) {
-                    currentGameId = gameId;
-                    loadLeaderboard(gameId, 1);
+                const selectedDate = document.getElementById("dateInput").value;
+                if (selectedDate) {
+                    currentDate = selectedDate;
+                    loadLeaderboard(selectedDate, 1);
                 }
             }
 
             function prevPage() {
-                if (currentPage > 1 && currentGameId) {
-                    loadLeaderboard(currentGameId, currentPage - 1);
+                if (currentPage > 1 && currentDate) {
+                    loadLeaderboard(currentDate, currentPage - 1);
                 }
             }
 
             function nextPage() {
-                if (currentGameId) {
-                    loadLeaderboard(currentGameId, currentPage + 1);
+                if (currentDate) {
+                    loadLeaderboard(currentDate, currentPage + 1);
                 }
             }
-
-            document.addEventListener("DOMContentLoaded", loadGames);
         </script>
     </head>
 
@@ -149,18 +127,16 @@
 
             <!-- Main Content -->
             <div class="content">
-                <h2 class="text-center mb-4">🎮 Game Leaderboard</h2>
+                <h2 class="text-center mb-4">📅 Date Leaderboard</h2>
 
-                <!-- Game Selection Dropdown -->
+                <!-- Date Selection Input -->
                 <div class="mb-3 text-center">
-                    <select id="gameDropdown" class="form-select w-50 mx-auto">
-                        <option value="">Loading games...</option>
-                    </select>
-                    <button class="btn btn-primary mt-2" onclick="fetchLeaderboard()">Load Game Leaderboard</button>
+                    <input type="date" id="dateInput" class="form-control w-50 mx-auto">
+                    <button class="btn btn-primary mt-2" onclick="fetchLeaderboard()">Load Date Leaderboard</button>
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped text-center" id="gameLeaderboard"></table>
+                    <table class="table table-bordered table-striped text-center" id="dateLeaderboard"></table>
                 </div>
 
                 <!-- Pagination Controls -->

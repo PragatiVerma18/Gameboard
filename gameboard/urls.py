@@ -24,8 +24,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from gameboard.api import urls as api_urls
-
-from gameboard.games.views import GlobalLeaderboardView, GameLeaderboardView
+from gameboard.games import views
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -51,10 +50,14 @@ urlpatterns = [
     # Project APIs
     path("admin/", admin.site.urls),
     path("api/", include(api_urls)),
+    # Views
+    path("", views.index, name="index"),
+    path("global_leaderboard/", views.global_leaderboard, name="global_leaderboard"),
+    path("game_leaderboard/", views.game_leaderboard, name="game_leaderboard"),
+    path("date_leaderboard/", views.date_leaderboard, name="date_leaderboard"),
     path(
-        "leaderboard/global/",
-        GlobalLeaderboardView.as_view(),
-        name="global_leaderboard",
+        "game_popularity_index/",
+        views.game_popularity_index,
+        name="game_popularity_index",
     ),
-    path("leaderboard/game/", GameLeaderboardView.as_view(), name="game_leaderboard"),
 ]
