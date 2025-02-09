@@ -12,6 +12,19 @@ See views [below](https://github.com/PragatiVerma18/Gameboard/#views) ⬇️
 - Retrieve leaderboards at game and global levels
 - Compute a game popularity index, refreshing every 5 minutes using Celery
 
+## Table of Contents
+
+1. [Setup Instructions](#setup-instructions)
+2. [API Documentation](#api-documentation)
+3. [Primary API Endpoints](#primary-api-endpoints)
+   - [Get Popularity Rankings](#1-get-popularity-rankings)
+   - [Get Global Leaderboard](#2-get-global-leaderboard)
+   - [Get Game-Specific Leaderboard](#3-get-game-specific-leaderboard)
+4. [Celery Tasks & Caching Strategy](#celery-tasks--caching-strategy)
+   - [Celery Tasks & Their Schedule](#celery-tasks--their-schedule)
+   - [Caching Strategy](#caching-strategy)
+5. [Views](#views)
+
 ## Setup Instructions
 
 1. Clone the Repository
