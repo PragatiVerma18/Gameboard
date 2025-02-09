@@ -6,6 +6,7 @@ from .details import GameDetailsView
 from .list import ListGamesView
 from .upvote import UpvoteGameView
 from .list_sessions import ListGameSessionsView
+from .game_popularity_index import GamePopularityView
 
 urlpatterns = [
     path("", ListGamesView.as_view(), name="list-games"),
@@ -17,5 +18,10 @@ urlpatterns = [
         "<uuid:game_id>/sessions/",
         ListGameSessionsView.as_view(),
         name="list-game-sessions",
+    ),
+    path(
+        "popularity-leaderboard/",
+        GamePopularityView.as_view(),
+        name="popularity-leaderboard",
     ),
 ]
