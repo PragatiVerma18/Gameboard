@@ -35,9 +35,13 @@ class GameAdmin(BaseModelAdmin):
         "truncated_id",
         "name",
         "upvotes",
+        "is_active",
     ]
-    list_filter = ("upvotes",)
-    search_fields = ("name",)
+    list_filter = ["is_active"]
+    search_fields = [
+        "id",
+        "name",
+    ]
 
 
 @admin.register(GameSession)
