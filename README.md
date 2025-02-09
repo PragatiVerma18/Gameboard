@@ -68,9 +68,9 @@ celery -A gameboard beat --loglevel=info
 python manage.py runserver
 ```
 
-> The server will run at http://127.0.0.1:8000.
-> Access Django Admin at http://127.0.0.1:8000/admin using the username and password you used earlier.
-> Access all APIs at http://127.0.0.1:8000/api/
+- The server will run at http://127.0.0.1:8000.
+- Access Django Admin at http://127.0.0.1:8000/admin using the username and password you used earlier.
+- Access all APIs at http://127.0.0.1:8000/api/
 
 10. Seed Test Data using Management Command in the terminal
 
@@ -141,12 +141,10 @@ GET /api/game-popularity/?date=2025-02-09&page=1&page_size=2
 
 **Query Parameters**:
 
-| Parameter | Type | Required | Description | Example |
-| --------- | ---- | -------- | ----------- | ------- |
-
-| `page` | int | No | Fetch a specific page of results. | `?page=2` |
-
-| `page_size` | int | No | Number of results per page (max 100). Defaults to 10. | `?page_size=5` |
+| Parameter   | Type | Required | Description                                           | Example        |
+| ----------- | ---- | -------- | ----------------------------------------------------- | -------------- |
+| `page`      | int  | No       | Fetch a specific page of results.                     | `?page=2`      |
+| `page_size` | int  | No       | Number of results per page (max 100). Defaults to 10. | `?page_size=5` |
 
 **Example Request**:
 
