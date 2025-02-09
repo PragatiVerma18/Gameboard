@@ -9,7 +9,6 @@ from django.utils import timezone
 
 from gameboard.games.models import Game, GameSession, GamePopularity
 
-# Set up logging
 logger = logging.getLogger(__name__)
 
 """
@@ -208,7 +207,6 @@ def refresh_game_popularity():
         )
         max_daily_sessions = max(max_daily_sessions, 1)
 
-        # Calculate popularity score and round to two decimal points
         score = round(
             (0.3 * (n_daily_players / max_daily_players))
             + (0.2 * (n_current_players / max_concurrent_players))
