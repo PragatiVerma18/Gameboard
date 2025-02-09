@@ -237,6 +237,38 @@ GET /api/leaderboard/game/0194e9d7-7384-cd62-882b-6e25d03a59ee/?page=1&page_size
 }
 ```
 
+## **Celery Tasks & Caching Strategy**
+
+### **Celery Tasks & Their Schedule**
+
+1. **Cache Popularity Factors & Maximum Values**
+
+   - **Task**: Computes and caches non-changing popularity factors for games, such as:
+     - Number of players who played yesterday
+     - Maximum session length for a game (from yesterday’s sessions)
+     - Total sessions played yesterday
+   - **Schedule**: Runs **once every 24 hours** since these values do not change throughout the day.
+
+2. **Refresh Game Popularity Scores**
+   - **Task**: Updates the popularity score for each game based on both cached and real-time values. It uses:
+     - Cached non-changing factors (from the previous task)
+     - Dynamic values (e.g., current active players, upvotes) fetched in real time
+   - **Schedule**: Runs **every 5 minutes** to keep scores updated while avoiding excessive database queries.
+
+### **Caching Strategy**
+
+- **Cached for 24 Hours** (Non-Changing Factors)
+
+  - **Yesterday’s Player Count per Game**
+  - **Maximum Session Length per Game**
+  - **Yesterday’s Total Sessions per Game**
+  - **Global Maximum Values for Normalization** (e.g., max upvotes, max daily players)
+
+- **Cached for 5 Minutes** (Dynamic Factors)
+  - **Popularity Scores**: Stored briefly to avoid unnecessary recalculations but remain up to date.
+
+By separating static and dynamic factors, caching ensures efficient computation while keeping real-time data accurate. 🚀
+
 ## Views
 
 ![Home Page](https://github.com/user-attachments/assets/ba2de675-fde6-4009-9196-9109df007a34)
@@ -248,5 +280,3 @@ GET /api/leaderboard/game/0194e9d7-7384-cd62-882b-6e25d03a59ee/?page=1&page_size
 ![Date level Leaderboard](https://github.com/user-attachments/assets/efabe72b-e937-475f-96b7-e59ec48d9085)
 
 ![Game Popularity Index](https://github.com/user-attachments/assets/537fc243-ccac-4644-984c-f0e33858e739)
-
-
