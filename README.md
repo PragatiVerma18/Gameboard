@@ -15,6 +15,7 @@ See views [below](https://github.com/PragatiVerma18/Gameboard/#views) ⬇️
 ## Table of Contents
 
 1. [Setup Instructions](#setup-instructions)
+   - [Using Docker](#using-docker)
 2. [API Documentation](#api-documentation)
 3. [Primary API Endpoints](#primary-api-endpoints)
    - [Get Popularity Rankings](#1-get-popularity-rankings)
@@ -26,6 +27,64 @@ See views [below](https://github.com/PragatiVerma18/Gameboard/#views) ⬇️
 5. [Views](#views)
 
 ## Setup Instructions
+
+### Using Docker
+
+1. Clone the Repository
+
+```
+git clone https://github.com/PragatiVerma18/Gameboard.git
+cd gameboard
+```
+
+2. Build and Start Containers
+
+Run the following command to build the images and start the services:
+
+```
+docker-compose up --build
+```
+
+This will:
+
+- Build the Django API container
+- Start a Redis container for Celery
+- Start Celery worker and Celery beat for background tasks 3. Verify the Setup
+
+Once the containers are up, check the running services:
+
+```
+docker ps
+```
+
+4. Apply Database Migrations
+
+If not already applied, run:
+
+```
+docker-compose exec web python manage.py migrate
+```
+
+5. (Optional) Create a Superuser for Django Admin
+
+```
+docker-compose exec web python manage.py createsuperuser
+```
+
+6. (Optional) Seed Test Data
+
+```
+docker-compose exec web python manage.py add_test_data
+```
+
+7. Access the API & Services
+
+- API Base URL: http://127.0.0.1:8000/api/
+- Django Admin: http://127.0.0.1:8000/admin/
+- Swagger UI: http://127.0.0.1:8000/swagger/
+- ReDoc: http://127.0.0.1:8000/redoc/
+
+### Without Docker
 
 1. Clone the Repository
 
