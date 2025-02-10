@@ -30,7 +30,7 @@ app.conf.beat_schedule = {
     },
     "refresh_game_popularity": {
         "task": "gameboard.games.tasks.refresh_game_popularity",
-        "schedule": 60,  # Run every 5 minutes
+        "schedule": 5 * 60,  # Run every 5 minutes
     },
 }
 
